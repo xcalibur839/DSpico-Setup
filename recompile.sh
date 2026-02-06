@@ -2,7 +2,7 @@
 
 source ./config.sh
 
-if ! [ -e keys/biosdsi7.bin -a -e keys/biosnds7.bin -a -e dsimode.nds ]; then
+if ! [ -e keys/biosdsi7.bin -a -e keys/biosnds7.bin -a -e bin/dsimode.nds ]; then
     echo
     echo
     echo Required files missing:
@@ -42,13 +42,13 @@ if [[ "$DSi" != "false" ]]; then
     $DLDITOOL $base_dir/dspico-dldi/DSpico.dldi uartBufv060.bin
 fi
 
-cd ../dspico-firmware
+cd $base_dir/dspico-firmware
 git pull
 cp $base_dir/DSRomEncryptor/$build_dir/default.nds roms/
-cp ../dsimode.nds roms/
+cp $base_dir/dsimode.nds roms/
 
-if [[ "$OG_DS" != "true" ]]; then
-    cp ../dspico-wrfuxxed/uartBufv060.bin data/
+if [[ "$DSi" != "false" ]]; then
+    cp $base_dir/dspico-wrfuxxed/uartBufv060.bin data/
     sed -i 's/#DSPICO_ENABLE_WRFUXXED/DSPICO_ENABLE_WRFUXXED/' CMakeLists.txt
 fi
 

@@ -5,10 +5,13 @@ source ./config.sh
 # Install dependencies
 sudo pacman -Syu --noconfirm --needed wget dotnet-sdk-9.0 cmake arm-none-eabi-gcc arm-none-eabi-newlib base-devel git python3
 
+# Create needed directories
+mkdir -p bin keys
+
 # Install extras if available, exit otherwise
 if [ -e extras.sh ]; then
     ./extras.sh
-elif [ -e keys/biosdsi7.bin -a -e keys/biosnds7.bin -a -e dsimode.nds ]; then
+elif [ -e keys/biosdsi7.bin -a -e keys/biosnds7.bin -a -e bin/dsimode.nds ]; then
     echo Using manually downloaded files
 else
     echo
@@ -83,7 +86,7 @@ cp $build_dir/default.nds $firmware_dir/roms/
 # DSi/3DS support
 if [[ "$DSi" != "false" ]]; then
     cd $base_dir
-    cp ../dsimode.nds $firmware_dir/roms/
+    cp dsimode.nds $firmware_dir/roms/
 
     git clone https://github.com/LNH-team/dspico-wrfuxxed.git
     cd dspico-wrfuxxed
