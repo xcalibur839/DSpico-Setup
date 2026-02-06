@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-source ./config.sh
-
-# Install dependencies
-sudo pacman -Syu --noconfirm --needed wget dotnet-sdk-9.0 cmake arm-none-eabi-gcc arm-none-eabi-newlib base-devel git python3
-
 # Create needed directories
 mkdir -p bin keys
 
@@ -53,7 +48,6 @@ sudo ln -s /opt/wonderful/thirdparty/blocksds /opt/blocksds
 source /opt/wonderful/bin/wf-env
 export DLDITOOL=/opt/wonderful/thirdparty/blocksds/core/tools/dlditool/dlditool
 popd
-base_dir=$(dirname $(realpath "$0"))/bin
 
 # Begin initial setup
 mkdir -p $base_dir
