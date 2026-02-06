@@ -11,14 +11,18 @@ mkdir -p bin keys
 # Install extras if available, exit otherwise
 if [ -e extras.sh ]; then
     ./extras.sh
-elif [ -e keys/biosdsi7.bin -a -e keys/biosnds7.bin -a -e bin/dsimode.nds ]; then
-    echo Using manually downloaded files
+elif [ -e keys/biosnds7 -a -e keys/biosdsi7.bin -a "$DSi" -eq "false" ]; then
+    echo "Using manually downloaded keys (without full DSi support)"
+elif [ -e keys/biosdsi7.bin -a -e keys/biosnds7.bin -a -e bin/dsimode.nds -a "$DSi" -ne "false" ]; then
+    echo "Using manually downloaded files (with full DSi support)"
 else
     echo
     echo
     echo Required files missing:
-    echo keys/biosdsi7.bin and keys/biosnds7.bin
-    echo "dsimode.nds (WRFUTester v0.60)"
+    echo keys/biosnds7.bin, keys/biosdsi7.bin
+    echo
+    echo Optional DSi file missing:
+    echo "bin/dsimode.nds (WRFUTester v0.60)"
     echo
     echo
     exit 1
@@ -66,8 +70,9 @@ $DLDITOOL $base_dir/dspico-dldi/DSpico.dldi BOOTLOADER.nds
 cd $base_dir
 git clone https://github.com/Gericom/DSRomEncryptor.git
 cd DSRomEncryptor
-dotnet build
-build_dir=$base_dir/DSRomEncryptor/DSRomEncryptor/bin/Debug/net9.0/
+dotnet build --configuration Release
+build_dir=$base_dir/DSRomEncryptor/DSRomEncryptor/bin/Release/net9.0/
+
 cp $base_dir/../keys/biosdsi7.bin $build_dir/biosdsi7.rom
 cp $base_dir/../keys/biosnds7.bin $build_dir/biosnds7.rom
 cd $build_dir

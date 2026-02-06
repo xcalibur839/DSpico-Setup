@@ -2,12 +2,18 @@
 
 source ./config.sh
 
-if ! [ -e keys/biosdsi7.bin -a -e keys/biosnds7.bin -a -e bin/dsimode.nds ]; then
+if [ -e keys/biosnds7 -a -e keys/biosdsi7.bin -a "$DSi" == "false" ]; then
+    echo "Using manually downloaded keys (without full DSi support)"
+elif [ -e keys/biosdsi7.bin -a -e keys/biosnds7.bin -a -e bin/dsimode.nds -a "$DSi" == "false" ]; then
+    echo "Using manually downloaded files (with full DSi support)"
+else
     echo
     echo
     echo Required files missing:
-    echo keys/biosdsi7.bin and keys/biosnds7.bin
-    echo "dsimode.nds (WRFUTester v0.60)"
+    echo keys/biosnds7.bin, keys/biosdsi7.bin
+    echo
+    echo Optional DSi file missing:
+    echo "bin/dsimode.nds (WRFUTester v0.60)"
     echo
     echo
     exit 1
@@ -32,7 +38,10 @@ cd ../DSRomEncryptor
 git pull
 dotnet build
 build_dir=DSRomEncryptor/bin/Debug/net9.0
-cp $base_dir/../keys/biosdsi7.bin $build_dir/biosdsi7.rom
+
+if [[ "$DSi" != "false" ]]; then
+    cp $base_dir/../keys/biosdsi7.bin $build_dir/biosdsi7.rom
+fi
 cp $base_dir/../keys/biosnds7.bin $build_dir/biosnds7.rom
 cd $build_dir
 ./DSRomEncryptor $base_dir/dspico-bootloader/BOOTLOADER.nds default.nds
@@ -47,9 +56,9 @@ fi
 cd $base_dir/dspico-firmware
 git pull
 cp $base_dir/DSRomEncryptor/$build_dir/default.nds roms/
-cp $base_dir/dsimode.nds roms/
 
 if [[ "$DSi" != "false" ]]; then
+    cp $base_dir/dsimode.nds roms/
     cp $base_dir/dspico-wrfuxxed/uartBufv060.bin data/
     sed -i 's/#DSPICO_ENABLE_WRFUXXED/DSPICO_ENABLE_WRFUXXED/' CMakeLists.txt
 fi
