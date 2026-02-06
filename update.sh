@@ -13,7 +13,9 @@ if ! [ -e keys/biosdsi7.bin -a -e keys/biosnds7.bin -a -e bin/dsimode.nds ]; the
     exit 1
 fi
 
-./update-toolchain.sh
+source /opt/wonderful/bin/wf-env
+wf-pacman -Syu
+
 export DLDITOOL=/opt/wonderful/thirdparty/blocksds/core/tools/dlditool/dlditool
 
 base_dir=$(dirname $(realpath "$0"))/bin
