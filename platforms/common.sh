@@ -8,7 +8,7 @@ DSi="false"
 # Install extras if available, exit otherwise
 if [ -e extras.sh ]; then
     ./extras.sh
-elif [ -e keys/biosnds7 -a -e keys/biosdsi7.bin -a  ]; then
+elif [ -e keys/biosnds7 -a -e keys/biosdsi7.bin ]; then
     if [ -e bin/dsimode.nds ]; then
         echo "Using manually downloaded files (with full DSi support)"
         DSi="true"
