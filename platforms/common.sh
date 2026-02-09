@@ -1,33 +1,5 @@
 #!/usr/bin/env bash
 
-# Create needed directories
-mkdir -p bin keys
-
-DSi="false"
-
-# Install extras if available, exit otherwise
-if [ -e extras.sh ]; then
-    ./extras.sh
-elif [ -e keys/biosnds7 -a -e keys/biosdsi7.bin ]; then
-    if [ -e bin/dsimode.nds ]; then
-        echo "Using manually downloaded files (with full DSi support)"
-        DSi="true"
-    else
-        echo "Using manually downloaded keys (without full DSi support)"
-    fi
-else
-    echo
-    echo
-    echo Required files missing:
-    echo keys/biosnds7.bin, keys/biosdsi7.bin
-    echo
-    echo Optional DSi file missing:
-    echo "bin/dsimode.nds (WRFUTester v0.60)"
-    echo
-    echo
-    exit 1
-fi
-
 # Install Wonderful Toolchain
 sudo mkdir /opt/wonderful
 sudo chown -R "$USER" /opt/wonderful
