@@ -48,7 +48,7 @@ echo.
 echo The computer needs to reboot to finish setup of WSL. Please save any open files and close all programs before continuing
 echo Once the computer has rebooted, run this script again to continue setup
 pause
-shutdown /r /t 1
+shutdown /r /t 0
 exit
 
 :continue_setup
