@@ -20,9 +20,6 @@ if not exist extras.sh (
     if not exist bin\ (
         md bin
         echo Please place WRFUTester v0.60 ^(dsimode.nds^) in the bin folder to enable DSi/3DS support
-    )
-    if not exist bin\dsimode.nds (
-        echo WRFUTester v0.60 ^(dsimode.nds^) not found in the bin folder. Press Ctrl+C to cancel, or
         pause
     )
 )
