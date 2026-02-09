@@ -1,11 +1,20 @@
 #!/usr/bin/env bash
 
-source ./config.sh
+export DSi="false"
 
-if [ -e keys/biosnds7 -a -e keys/biosdsi7.bin -a "$DSi" == "false" ]; then
-    echo "Using manually downloaded keys (without full DSi support)"
-elif [ -e keys/biosdsi7.bin -a -e keys/biosnds7.bin -a -e bin/dsimode.nds -a "$DSi" == "false" ]; then
-    echo "Using manually downloaded files (with full DSi support)"
+# Install extras if available, exit otherwise
+if [ -e extras.sh ]; then
+    ./extras.sh
+    export DSi="true"
+elif [ -e keys/biosnds7.bin -a -e keys/biosdsi7.bin ]; then
+    if [ ! -e bin/dsimode.nds ]; then
+        echo "WRFUTester v0.60 (dsimode.nds) not found in the bin folder. Full DSi/3DS support wil not be included."
+        echo "Press Ctrl+C to cancel or Press Enter to continue"
+        read
+    else
+        echo "Using manually downloaded files (with full DSi support)"
+        export DSi="true"
+    fi
 else
     echo
     echo
