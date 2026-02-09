@@ -3,13 +3,18 @@
 # Create needed directories
 mkdir -p bin keys
 
+DSi="false"
+
 # Install extras if available, exit otherwise
 if [ -e extras.sh ]; then
     ./extras.sh
-elif [ -e keys/biosnds7 -a -e keys/biosdsi7.bin -a "$DSi" -eq "false" ]; then
-    echo "Using manually downloaded keys (without full DSi support)"
-elif [ -e keys/biosdsi7.bin -a -e keys/biosnds7.bin -a -e bin/dsimode.nds -a "$DSi" -ne "false" ]; then
-    echo "Using manually downloaded files (with full DSi support)"
+elif [ -e keys/biosnds7 -a -e keys/biosdsi7.bin -a  ]; then
+    if [ -e bin/dsimode.nds ]; then
+        echo "Using manually downloaded files (with full DSi support)"
+        DSi="true"
+    else
+        echo "Using manually downloaded keys (without full DSi support)"
+    fi
 else
     echo
     echo
