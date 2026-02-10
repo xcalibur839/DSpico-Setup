@@ -24,17 +24,20 @@ if not exist extras.sh (
     )
 )
 
-wsl --status > nul
 rem wsl --status; errorlevel == 50; 'means not installed'
+wsl --status > nul
 if ERRORLEVEL 50 (
     echo Initial WSL setup required
     goto setup_wsl
-) else if ERRORLEVEL -1 (
-    echo Continuing WSL setup
-    goto continue_setup
 ) else if ERRORLEVEL 0 (
-    echo Finishing setup and compilation
-    goto finish
+    wsl -l > nul
+    if ERRORLEVEL 0 (
+        echo Finishing setup and compilation
+        goto finish
+    ) else if ERRORLEVEL -1 (
+        echo Continuing WSL setup
+        goto continue_setup
+    )
 )
 
 :setup_wsl
