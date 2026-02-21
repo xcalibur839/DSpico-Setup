@@ -1,35 +1,6 @@
 #!/usr/bin/env bash
 
-platform=$1
-
-# Install Wonderful Toolchain
-if ! [ -d /opt/wonderful -a -x /opt/wonderful/bin/wf-pacman ]; then
-    sudo mkdir /opt/wonderful
-    sudo chown -R "$USER" /opt/wonderful
-    pushd /opt/wonderful/
-    wget https://wonderful.asie.pl/bootstrap/wf-bootstrap-${platform}.tar.gz
-    tar xzvf wf-bootstrap-${platform}.tar.gz
-fi
-
-/opt/wonderful/bin/wf-pacman -Syu --noconfirm wf-tools
-source /opt/wonderful/bin/wf-env
-
-# Install BlocksDS
-export PATH=/opt/wonderful/bin:$PATH
-
-wf-config repo enable blocksds
-wf-pacman -Syu --noconfirm blocksds-toolchain blocksds-docs toolchain-llvm-teak-llvm
-
-# Install Third Party libs (optional)
-if [[ "$DSi" != "false" ]]; then
-    wf-pacman -S --noconfirm blocksds-nflib blocksds-nitroengine
-fi
-
-# Setup Environment vars
-sudo ln -s /opt/wonderful/thirdparty/blocksds /opt/blocksds
-source /opt/wonderful/bin/wf-env
-export DLDITOOL=/opt/wonderful/thirdparty/blocksds/core/tools/dlditool/dlditool
-popd
+export DLDITOOL="/opt/blocksds/core/tools/dlditool/dlditool"
 
 # Begin initial setup
 mkdir -p $base_dir
@@ -47,7 +18,7 @@ cd $base_dir
 git clone https://github.com/Gericom/DSRomEncryptor.git
 cd DSRomEncryptor
 dotnet build --configuration Release
-build_dir=$base_dir/DSRomEncryptor/DSRomEncryptor/bin/Release/net9.0/
+build_dir=$base_dir/DSRomEncryptor/DSRomEncryptor/bin/Release/net9.0
 
 cp $base_dir/../keys/biosdsi7.bin $build_dir/biosdsi7.rom
 cp $base_dir/../keys/biosnds7.bin $build_dir/biosnds7.rom

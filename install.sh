@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
-source /etc/os-release
+if [ -e /etc/os-release ]; then
+    source /etc/os-release
+else
+    ID=$(uname -s)
+fi
 
 # Create needed directories
 mkdir -p bin keys
@@ -33,10 +37,14 @@ else
     exit 1
 fi
 
+export base_dir=$(dirname $(realpath "$0"))/bin
 if [ -d platforms/${ID} ]; then
-    export base_dir=$(dirname $(realpath "$0"))/bin
+    echo "Found supported platform $ID"
     platforms/${ID}/dependencies.sh
-    platforms/common.sh
+    platforms/common.sh "x86_64"
+elif [ $ID == "Darwin" ]; then
+    echo Found macOS
+    platforms/macOS/uncommon.sh
 else
     echo
     echo "Platform $ID not currently supported"
