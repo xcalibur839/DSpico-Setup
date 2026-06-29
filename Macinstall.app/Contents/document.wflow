@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>AMApplicationBuild</key>
-	<string>533</string>
+	<string>534</string>
 	<key>AMApplicationVersion</key>
 	<string>2.10</string>
 	<key>AMDocumentVersion</key>
@@ -51,7 +51,7 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>source</key>
-					<string>tell application "Finder"	set scriptDir to container of (path to me) as aliasend tellset fullPath to "" &amp; scriptDir &amp; "platforms:macOS:"run script file (fullPath &amp; "DSPico-Firmware.scpt") with parameters {fullPath}</string>
+					<string>tell application "Finder"	set scriptDir to container of (path to me) as alias	#navigate to container of (path to me)end tell#set fullPath to "" &amp; scriptDir &amp; "platforms:macOS:"#run script file (fullPath &amp; "DSPico-Firmware.scpt") with parameters {fullPath}set installFile to POSIX path of (scriptDir as text) &amp; "install.sh"set installFile to quoted form of installFiletell application "Terminal"	activate	delay 1	set shell to do script "cd " &amp; quoted form of (POSIX path of scriptDir as text) in window 1	set shell to do script "./install.sh" in window 1end tell</string>
 				</dict>
 				<key>BundleIdentifier</key>
 				<string>com.apple.Automator.RunScript</string>
@@ -105,7 +105,7 @@ end run</string>
 				<key>isViewVisible</key>
 				<integer>1</integer>
 				<key>location</key>
-				<string>575.750000:315.000000</string>
+				<string>455.750000:315.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>

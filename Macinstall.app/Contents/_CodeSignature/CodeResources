@@ -6,11 +6,11 @@
 	<dict>
 		<key>Resources/ApplicationStub.icns</key>
 		<data>
-		KRABYRjqniV+RHksKm/Cwp/rBjc=
+		6ecpcY2FIkiuxHwZTXvk0Q+NDK0=
 		</data>
 		<key>Resources/Assets.car</key>
 		<data>
-		WK8lASAkPEbO0tXFFuaMpSnRuMA=
+		NQVrH/AnxGiOG0jVeH9Lhodcv60=
 		</data>
 		<key>Resources/InfoPlist.loctable</key>
 		<data>
@@ -23,22 +23,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			KRABYRjqniV+RHksKm/Cwp/rBjc=
+			6ecpcY2FIkiuxHwZTXvk0Q+NDK0=
 			</data>
 			<key>hash2</key>
 			<data>
-			XZazMZ2bZ2qWGxbxoiDRlmRjg5X5TsklYcRHMnNHifU=
+			JbL6aY6oAI0/VQjl7n4DtneW06wjjgmhdYaySgH4918=
 			</data>
 		</dict>
 		<key>Resources/Assets.car</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			WK8lASAkPEbO0tXFFuaMpSnRuMA=
+			NQVrH/AnxGiOG0jVeH9Lhodcv60=
 			</data>
 			<key>hash2</key>
 			<data>
-			bTKRxpC4jf1e/YBlaS5MF5T9ggCHDE3G1eW6W4pRtCc=
+			KExyunlrOutFoUrJ1LU4CmHgyQhk9UBVuq2xyt/h51o=
 			</data>
 		</dict>
 		<key>Resources/InfoPlist.loctable</key>
@@ -56,10 +56,10 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			oTpSQi2KhU/f6NVVXKpJlaRfWms=
+			k7kSF601yXOYCBTLBAq+ShF8dtA=
 			</data>
 			<key>requirement</key>
-			<string>cdhash H"a13a52422d8a854fdfe8d5555caa4995a45f5a6b"</string>
+			<string>cdhash H"93b91217ad35c973980814cb040abe4a117c76d0"</string>
 		</dict>
 	</dict>
 	<key>rules</key>

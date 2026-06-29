@@ -1,9 +1,32 @@
 #!/usr/bin/env bash
 
+if [ -e DSpico.uf2 ]; then
+    ./update.sh
+    exit
+fi
+
 if [ -e /etc/os-release ]; then
     source /etc/os-release
 else
     ID=$(uname -s)
+fi
+
+if [ -d platforms/${ID} ]; then
+    echo "Found supported platform $ID"
+    platforms/${ID}/dependencies.sh
+else
+    echo
+    echo "Platform $ID not currently supported"
+    echo
+fi
+
+if [ $ID == "Darwin" ]; then
+    echo Found macOS
+    platform="darwin-aarch64"
+    source ~/.zprofile
+    export PATH="$HOMEBREW_PREFIX/opt/gnu-sed/libexec/gnubin:$PATH"
+else
+    platform=$(uname -m)
 fi
 
 # Create needed directories
@@ -38,15 +61,4 @@ else
 fi
 
 export base_dir=$(dirname $(realpath "$0"))/bin
-if [ -d platforms/${ID} ]; then
-    echo "Found supported platform $ID"
-    platforms/${ID}/dependencies.sh
-    platforms/common.sh "x86_64"
-elif [ $ID == "Darwin" ]; then
-    echo Found macOS
-    platforms/macOS/uncommon.sh
-else
-    echo
-    echo "Platform $ID not currently supported"
-    echo
-fi
+platforms/common.sh "$platform"
