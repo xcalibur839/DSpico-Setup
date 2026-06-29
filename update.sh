@@ -1,9 +1,18 @@
 #!/usr/bin/env bash
 
+# Only update once per 24 hours at most unless FORCE env var is 1 and only if DSpico.uf2 already exists
+if [ -e DSpico.uf2 -a $FORCE -ne 1 -a $(( $(date +%s) - $(date -r DSpico.uf2 +%s) )) -lt 86400 ]; then
+    echo Updated within the past 24 hours. Skipping update. Set FORCE=1 to force updates
+    exit
+elif [ ! -e DSpico.uf2 ]; then
+    echo DSpico.uf2 has not been compiled yet. Please run setup.sh first
+    exit
+fi
+
 export DSi="false"
 
 # Install extras if available, exit otherwise
-if [ -e extras.sh ]; then
+if [ -e extras.sh -a ! -e keys/biosnds7.bin -a ! -e keys/biosdsi7.bin ]; then
     ./extras.sh
     export DSi="true"
 elif [ -e keys/biosnds7.bin -a -e keys/biosdsi7.bin ]; then
@@ -76,5 +85,7 @@ fi
 echo
 cp ./build/DSpico.uf2 $base_dir/../
 cd $base_dir/..
-echo Compiled DSpico.uf2 can also be found in $(pwd)
+if [ -e DSpico.uf2 -a $(( $(date +%s) - $(date -r DSpico.uf2 +%s) )) -lt 600 ]; then
+    echo Compiled DSpico.uf2 can also be found in $(pwd)
+fi
 popd
